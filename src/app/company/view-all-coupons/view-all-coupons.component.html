@@ -1,0 +1,88 @@
+<mat-form-field>
+  <mat-label>Get Coupon By Id </mat-label>
+  <input matInput (keyup)="getCouponById($event)" placeholder="Id">
+</mat-form-field>
+<mat-form-field style="margin-left: 50px;">
+  <mat-label>Get Coupon By Type</mat-label>
+  <mat-select >
+    <mat-option (click)="getCouponByType(type)" *ngFor="let type of types" [value] = "type">
+      {{type}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<a mat-button (click)="cancel()"><mat-icon>clear</mat-icon></a>
+
+
+
+<table mat-table [dataSource]="coupons"   class="mat-elevation-z8">
+   
+    <ng-container matColumnDef="id">
+     <th mat-header-cell *matHeaderCellDef> Id </th>
+     <td mat-cell *matCellDef="let coupon" name="id">{{coupon.id}}</td>
+   </ng-container>
+ 
+   
+   <ng-container matColumnDef="title">
+     <th mat-header-cell *matHeaderCellDef> Title </th>
+     <td mat-cell *matCellDef="let coupon" name="title">{{coupon.title}}</td>
+   </ng-container>
+ 
+   
+   <ng-container matColumnDef="startDate">
+     <th mat-header-cell *matHeaderCellDef> startDate </th>
+     <td mat-cell *matCellDef="let coupon; let i = index;" name="startDate">{{coupon.startDate}} </td>
+   </ng-container>
+ 
+   
+   <ng-container matColumnDef="endDate">
+     <th mat-header-cell *matHeaderCellDef> endDate </th>
+     <td mat-cell *matCellDef="let coupon; let i = index;" name="endDate">
+       <span *ngIf="!editedCoupon || editedCoupon.id !== coupon.id">{{coupon.endDate}}</span>
+       <span *ngIf="editedCoupon && editedCoupon.id === coupon.id"><input type="text" [(ngModel)]="editedCoupon.endDate"></span>
+     </td>
+   </ng-container>
+
+   <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef> amount </th>
+    <td mat-cell *matCellDef="let coupon; let i = index;" name="amount">{{coupon.amount}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef> type </th>
+    <td mat-cell *matCellDef="let coupon; let i = index;" name="type">{{coupon.type}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="message">
+    <th mat-header-cell *matHeaderCellDef> message </th>
+    <td mat-cell *matCellDef="let coupon; let i = index;" name="message">{{coupon.message}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> price </th>
+    <td mat-cell *matCellDef="let coupon; let i = index;" name="price">
+      <span *ngIf="!editedCoupon || editedCoupon.id !== coupon.id">{{coupon.price}}</span>
+      <span *ngIf="editedCoupon && editedCoupon.id === coupon.id"><input type="text" [(ngModel)]="editedCoupon.price"></span>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="image">
+    <th mat-header-cell *matHeaderCellDef> image </th>
+    <td mat-cell *matCellDef="let coupon; let i = index;" name="image"> {{coupon.image}} </td>
+  </ng-container>
+
+   <ng-container matColumnDef="buttons">
+     <th mat-header-cell *matHeaderCellDef>  </th>
+     <td mat-cell *matCellDef="let coupon; let i = index;" name="buttons">
+       <button (click)="editCoupon(i)" *ngIf="!editedCoupon || editedCoupon.id !== coupon.id">Edit</button>
+       <button (click)="saveEditedCoupon(i)" *ngIf="editedCoupon && editedCoupon.id === coupon.id">Save</button>
+       <button (click)="cancelEditCoupon()" *ngIf="editedCoupon && editedCoupon.id === coupon.id">Cancel</button>
+       <button (click)="deleteCoupon(coupon.id)">Delete</button>
+     </td>
+     </ng-container>
+ 
+   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+ </table> 
+  
+

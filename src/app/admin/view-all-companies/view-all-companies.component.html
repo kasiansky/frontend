@@ -1,0 +1,52 @@
+ 
+ <mat-form-field>
+  <mat-label>Get Company By Id</mat-label>
+  <input matInput (keyup)="getCompanyById($event)" placeholder="Id">
+</mat-form-field>
+
+ <table mat-table [dataSource]="companies"   class="mat-elevation-z8">
+   
+     <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let company" name="id">{{company.id}}</td>
+    </ng-container>
+  
+    
+    <ng-container matColumnDef="companyName">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let company" name="name">{{company.companyName}}</td>
+    </ng-container>
+  
+    
+    <ng-container matColumnDef="password">
+      <th mat-header-cell *matHeaderCellDef> Password </th>
+      <td mat-cell *matCellDef="let company; let i = index;" name="password">
+        <span *ngIf="!editedCompany || editedCompany.id !== company.id">{{company.password}}</span>
+        <span *ngIf="editedCompany && editedCompany.id === company.id"><input type="text" [(ngModel)]="editedCompany.password"></span>
+      </td>
+    </ng-container>
+  
+    
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let company; let i = index;" name="email">
+        <span *ngIf="!editedCompany || editedCompany.id !== company.id">{{company.email}}</span>
+        <span *ngIf="editedCompany && editedCompany.id === company.id"><input type="text" [(ngModel)]="editedCompany.email"></span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="buttons">
+      <th mat-header-cell *matHeaderCellDef>  </th>
+      <td mat-cell *matCellDef="let company; let i = index;" name="buttons">
+        <button (click)="editCompany(i)" *ngIf="!editedCompany || editedCompany.id !== company.id" >Edit</button>
+        <button (click)="saveEditedCompany(i)" *ngIf="editedCompany && editedCompany.id === company.id">Save</button>
+        <button (click)="cancelEditCompany()" *ngIf="editedCompany && editedCompany.id === company.id">Cancel</button>
+        <button (click)="deleteCompany(company.id)">Delete</button>
+      </td>
+      </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table> 
+   
+

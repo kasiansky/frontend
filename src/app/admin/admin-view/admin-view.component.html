@@ -1,0 +1,25 @@
+
+
+<mat-sidenav-container class="example-container" >
+  <mat-sidenav mode="side" opened>
+    <button mat-button (click)="showCompanies()">Create Company</button><br>
+    <button mat-button (click)="showCustomers()">Create Customer</button>
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <app-add-company  *ngIf="!companyIsCollapsed"></app-add-company>
+      <app-add-customer *ngIf="!customerIsCollapsed"></app-add-customer>
+      <mat-tab-group animationDuration="0ms">
+      <mat-tab label="Companies"><app-view-all-companies></app-view-all-companies></mat-tab>
+      <mat-tab label="Customers"><app-view-all-customers></app-view-all-customers></mat-tab>
+    </mat-tab-group>
+    
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
+
+
+
+  

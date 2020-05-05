@@ -1,0 +1,126 @@
+<mat-card class="example-card" >
+    <mat-card-header>
+      <mat-card-title>Create new coupon</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="example-form" [formGroup]="form">
+        <table class="example-full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="example-full-width">
+              <input matInput formControlName="title" placeholder="Title" 
+               name="title" required>
+               <mat-error *ngIf="title.invalid">
+                Title Required
+              </mat-error>
+              </mat-form-field>
+            </td>
+          </tr>          
+          <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+            <mat-label>Start date</mat-label>
+            <input matInput formControlName="startDate" 
+            [min]="minDate"
+            [matDatepicker]="picker1" name = "startDate" required>
+            <mat-datepicker-toggle matSuffix [for]="picker1">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker1  >
+            </mat-datepicker>
+            <mat-error *ngIf="startDate.errors?.required">
+              Start Date Required
+            </mat-error>
+            <mat-error *ngIf="form.controls.startDate.errors?.lessThanEqualTo">
+              Start Date must be before End Date
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="example-full-width" style="margin-left: 20px;">
+          <mat-label>End date</mat-label>
+          <input matInput formControlName="endDate"
+          
+           [matDatepicker]="picker2" name = "endDate" required>
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2 ></mat-datepicker>
+          <mat-error *ngIf="endDate.errors?.required">
+            End Date Required
+          </mat-error>
+          <mat-error *ngIf="form.controls.endDate.errors?.minDate">
+            End Date must be after Start Date
+          </mat-error>
+        </mat-form-field>
+        </td>
+          </tr>
+          <tr>
+          <td><mat-form-field class="example-full-width">
+            <input matInput formControlName="amount" placeholder="Amount"  name="amount" required>
+            <mat-error *ngIf="amount.errors?.required">
+              Amount Required
+            </mat-error>
+            <mat-error *ngIf="amount.errors?.pattern">
+              Only numbers and dots
+            </mat-error>
+          </mat-form-field>
+        </td>
+        </tr>
+         <tr>
+           <td>
+            <mat-form-field>
+              <mat-label>Type</mat-label>
+              <mat-select name = "type" formControlName="type">
+                <mat-option *ngFor= "let type of types" [value] = "type">
+                  {{type}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="type.invalid">
+                Type Required
+              </mat-error>
+            </mat-form-field>
+           </td>
+         </tr>
+        <tr>
+          <td><mat-form-field class="example-full-width">
+            <input matInput formControlName="message"
+            placeholder="Message" 
+              name="message" required>
+              <mat-error *ngIf="message.invalid">
+                Message Required
+              </mat-error>
+          </mat-form-field>
+        </td>
+        </tr>
+        <tr>
+          <td><mat-form-field class="example-full-width">
+            <input matInput formControlName="price"
+             placeholder="Price"
+             name="price" required>
+             <mat-error *ngIf="price.errors?.required">
+              Price Required
+            </mat-error>
+            <mat-error *ngIf="price.errors?.pattern">
+              Only numbers and dots
+            </mat-error>
+          </mat-form-field></td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="example-full-width">
+            <input matInput formControlName="image"
+            placeholder="Image" 
+              name="image">
+          </mat-form-field>
+        </td>
+        </tr>
+      </table>
+      </form>
+  
+     
+    </mat-card-content>
+  
+    <mat-card-actions>
+  
+      <button mat-raised-button [disabled]="!form.valid" (click)="create()" color="primary">Submit</button>
+  
+    </mat-card-actions>
+  
+  </mat-card>
+

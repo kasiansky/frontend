@@ -1,0 +1,14 @@
+
+
+<mat-sidenav-container class="example-container" >
+    <mat-sidenav mode="side" opened>
+      <button mat-button (click)="showCustomerDetails()">Customer Details</button><br>
+     </mat-sidenav>
+    <mat-sidenav-content>
+        <app-customer-details *ngIf="!customerIsCollapsed"></app-customer-details>
+        <mat-tab-group animationDuration="0ms">
+        <mat-tab label="Coupons"><app-all-coupons></app-all-coupons></mat-tab>
+        <mat-tab label="Purchased Coupons"><app-all-purchased-coupons></app-all-purchased-coupons></mat-tab>
+        </mat-tab-group>     
+    </mat-sidenav-content>
+  </mat-sidenav-container>
