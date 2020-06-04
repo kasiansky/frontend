@@ -7,6 +7,7 @@ import { AuthenticationService } from './authentication.service';
 })
 export class ApiService {
 
+  // private api: string = "http://springcoupon.us-east-2.elasticbeanstalk.com:5000/";
   private api: string = "http://t420:8080/";
 
   constructor(private httpClient: HttpClient, private auth: AuthenticationService) {}
